@@ -45,7 +45,9 @@ const NetworkRecords = require('../../computed/network-records.js');
  */
 async function _setup({driver, config, requestedUrl}) {
   await driver.connect();
-  await gotoURL(driver, defaultNavigationConfig.blankPage, {waitUntil: ['navigated']});
+  if (!config.settings.skipAboutBlank) {
+    await gotoURL(driver, defaultNavigationConfig.blankPage, {waitUntil: ['navigated']});
+  }
 
   const baseArtifacts = await getBaseArtifacts(config, driver, {gatherMode: 'navigation'});
   baseArtifacts.URL.requestedUrl = requestedUrl;
@@ -60,7 +62,9 @@ async function _setup({driver, config, requestedUrl}) {
  * @return {Promise<{warnings: Array<LH.IcuMessage>}>}
  */
 async function _setupNavigation({requestedUrl, driver, navigation, config}) {
-  await gotoURL(driver, navigation.blankPage, {...navigation, waitUntil: ['navigated']});
+  if (!config.settings.skipAboutBlank) {
+    await gotoURL(driver, navigation.blankPage, {...navigation, waitUntil: ['navigated']});
+  }
   const {warnings} = await prepare.prepareTargetForIndividualNavigation(
     driver.defaultSession,
     config.settings,
