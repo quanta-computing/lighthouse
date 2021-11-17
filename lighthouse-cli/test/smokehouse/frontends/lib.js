@@ -43,7 +43,7 @@ async function smokehouse(options) {
 
   const shardedTests = getShardedDefinitions(modifiedTests, shardArg);
 
-  return; // runSmokehouse(shardedTests, smokehouseOptions);
+  return runSmokehouse(shardedTests, smokehouseOptions);
 }
 
 export {smokehouse};
