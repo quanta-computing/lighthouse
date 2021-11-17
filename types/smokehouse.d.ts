@@ -70,6 +70,7 @@ declare global {
       urlFilterRegex?: RegExp;
       skip?: (test: TestDfn, expectation: ExpectedRunnerResult) => string | false;
       modify?: (test: TestDfn, expectation: ExpectedRunnerResult) => void;
+      shardArg: string | undefined;
     }
   }
 }
