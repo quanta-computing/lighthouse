@@ -281,7 +281,6 @@ export class LighthouseReportViewer {
     if (this._isFlowReport(json)) {
       this._renderFlowResult(json);
     } else {
-      console.log('######');
       this._renderLhr(json);
     }
 
