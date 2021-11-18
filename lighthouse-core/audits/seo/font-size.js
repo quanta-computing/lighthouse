@@ -196,9 +196,11 @@ function findStyleRuleSource(baseURL, styleDeclaration, parentNode) {
       }
     }
 
-    const url = stylesheet.sourceURL;
+    const source = Audit.makeSourceLocation(stylesheet.sourceURL, line, column);
+    source.urlProvider = urlProvider;
+
     return {
-      source: {type: 'source-location', url, urlProvider, line, column},
+      source,
       selector,
     };
   }
@@ -236,7 +238,7 @@ class FontSize extends Audit {
       title: str_(UIStrings.title),
       failureTitle: str_(UIStrings.failureTitle),
       description: str_(UIStrings.description),
-      requiredArtifacts: ['FontSize', 'URL', 'MetaElements'],
+      requiredArtifacts: ['FontSize', 'URL', 'MetaElements', 'SourceMaps', 'ScriptElements'],
     };
   }
 
