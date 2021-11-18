@@ -14,7 +14,7 @@ import {ViewerUIFeatures} from './viewer-ui-features.js';
 import {DOM} from '../../../report/renderer/dom.js';
 import {ReportRenderer} from '../../../report/renderer/report-renderer.js';
 import {TextEncoding} from '../../../report/renderer/text-encoding.js';
-import renderFlow from '../../../flow-report/render-flow.js';
+import {renderFlowReport} from '../../../flow-report/api.js';
 
 /* global logger */
 
@@ -268,7 +268,7 @@ export class LighthouseReportViewer {
    */
   _renderFlowResult(json) {
     const container = find('main', document);
-    renderFlow(json, container);
+    renderFlowReport(json, container);
   }
 
   /**

@@ -12,6 +12,6 @@ import {App} from './src/app';
  * @param {LH.FlowResult} flowResult
  * @param {HTMLElement} container
  */
-export default function renderFlow(flowResult, container) {
+export function renderFlowReport(flowResult, container) {
   render(h(App, {flowResult}), container);
 }
