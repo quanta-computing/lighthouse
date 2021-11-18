@@ -13,11 +13,12 @@ import {render} from 'preact';
 
 import {App} from './src/app';
 
-// Used by standalone-flow.html
 function __initLighthouseFlowReport__() {
-  const root = document.body.querySelector('main');
-  if (!root) throw Error('Root element not found');
-  render(<App flowResult={window.__LIGHTHOUSE_FLOW_JSON__} />, root);
+  const container = document.body.querySelector('main');
+  if (!container) throw Error('Container element not found');
+  container.classList.add('flow-vars', 'lh-root', 'lh-vars');
+  render(<App flowResult={window.__LIGHTHOUSE_FLOW_JSON__} />, container);
 }
 
 window.__initLighthouseFlowReport__ = __initLighthouseFlowReport__;
+window.__initLighthouseFlowReport__();

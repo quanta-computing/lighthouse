@@ -8,36 +8,37 @@ import {jest} from '@jest/globals';
 import {FunctionComponent} from 'preact';
 import {act, render} from '@testing-library/preact';
 
-import {Topbar} from '../src/topbar';
 import {FlowResultContext} from '../src/util';
-import {ReportRendererContext} from '../src/wrappers/report-renderer';
 import {I18nProvider} from '../src/i18n/i18n';
+
+const mockSaveFile = jest.fn();
+jest.unstable_mockModule('../../../report/renderer/api.js', () => ({
+  saveFile: mockSaveFile,
+}));
+
+let Topbar: typeof import('../src/topbar').Topbar;
+beforeAll(async () => {
+  Topbar = (await import('../src/topbar')).Topbar;
+});
 
 const flowResult = {
   name: 'User flow',
   steps: [{lhr: {
     fetchTime: '2021-09-14T22:24:22.462Z',
     configSettings: {locale: 'en-US'},
+    i18n: {rendererFormattedStrings: {}},
   }}],
 } as any;
 
 let wrapper: FunctionComponent;
-let mockSaveFile = jest.fn();
 
 beforeEach(() => {
-  mockSaveFile = jest.fn();
-  const reportRendererValue: any = {
-    dom: {
-      saveFile: mockSaveFile,
-    },
-  };
+  mockSaveFile.mockReset();
   wrapper = ({children}) => (
     <FlowResultContext.Provider value={flowResult}>
-      <ReportRendererContext.Provider value={reportRendererValue}>
-        <I18nProvider>
-          {children}
-        </I18nProvider>
-      </ReportRendererContext.Provider>
+      <I18nProvider>
+        {children}
+      </I18nProvider>
     </FlowResultContext.Provider>
   );
 });

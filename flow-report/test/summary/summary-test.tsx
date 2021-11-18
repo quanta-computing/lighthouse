@@ -10,7 +10,6 @@ import {FunctionComponent} from 'preact';
 import {I18nProvider} from '../../src/i18n/i18n';
 import {SummaryHeader, SummaryFlowStep} from '../../src/summary/summary';
 import {FlowResultContext} from '../../src/util';
-import {ReportRendererProvider} from '../../src/wrappers/report-renderer';
 import {flowResult} from '../sample-flow';
 
 let wrapper: FunctionComponent;
@@ -18,11 +17,9 @@ let wrapper: FunctionComponent;
 beforeEach(() => {
   wrapper = ({children}) => (
     <FlowResultContext.Provider value={flowResult}>
-      <ReportRendererProvider>
-        <I18nProvider>
-          {children}
-        </I18nProvider>
-      </ReportRendererProvider>
+      <I18nProvider>
+        {children}
+      </I18nProvider>
     </FlowResultContext.Provider>
   );
 });
@@ -34,7 +31,7 @@ describe('SummaryHeader', () => {
     const lhrCounts = root.getByText(/·/);
     expect(root.getByText('Summary')).toBeTruthy();
     expect(lhrCounts.textContent).toEqual(
-      '2 navigation reports · 1 timespan reports · 1 snapshot reports'
+      '2 navigation reports · 1 timespan report · 1 snapshot report'
     );
   });
 });

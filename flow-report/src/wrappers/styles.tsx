@@ -5,22 +5,12 @@
  */
 
 import {FunctionComponent} from 'preact';
-import {useLayoutEffect, useRef} from 'preact/hooks';
 
-import {useReportRenderer} from './report-renderer';
+import {createStylesElement} from '../../../report/renderer/api';
+import {useExternalRenderer} from '../util';
 
 export const Styles: FunctionComponent = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const {dom} = useReportRenderer();
-
-  useLayoutEffect(() => {
-    if (!ref.current) return;
-    const styles = dom.createComponent('styles');
-    ref.current.appendChild(styles);
-    return () => {
-      if (ref.current) ref.current.innerHTML = '';
-    };
-  }, []);
+  const ref = useExternalRenderer<HTMLDivElement>(createStylesElement);
 
   return <div ref={ref}/>;
 };
