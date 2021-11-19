@@ -195,7 +195,7 @@ async function _computeNavigationResult(
 async function _navigation(navigationContext) {
   const artifactState = getEmptyArtifactState();
   const phaseState = {
-    gatherMode: /** @type {'navigation'} */ ('navigation'),
+    gatherMode: /** @type {const} */ ('navigation'),
     driver: navigationContext.driver,
     computedCache: navigationContext.computedCache,
     artifactDefinitions: navigationContext.navigation.artifacts,
