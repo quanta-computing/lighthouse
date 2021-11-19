@@ -87,10 +87,6 @@ declare global {
   type FirstParamType<T extends (arg1: any, ...args: any[]) => any> =
     T extends (arg1: infer P, ...args: any[]) => any ? P : never;
 
-  type FlattenedPromise<A> = Promise<A extends Promise<infer X> ? X : A>;
-
-  type UnPromise<T> = T extends Promise<infer U> ? U : T
-
   /**
    * If `S` is a kebab-style string `S`, convert to camelCase.
    */

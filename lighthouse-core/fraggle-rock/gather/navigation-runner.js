@@ -142,8 +142,8 @@ async function _collectDebugData(navigationContext, phaseState) {
 /**
  * @param {NavigationContext} navigationContext
  * @param {PhaseState} phaseState
- * @param {UnPromise<ReturnType<typeof _setupNavigation>>} setupResult
- * @param {UnPromise<ReturnType<typeof _navigate>>} navigateResult
+ * @param {Awaited<ReturnType<typeof _setupNavigation>>} setupResult
+ * @param {Awaited<ReturnType<typeof _navigate>>} navigateResult
  * @return {Promise<{finalUrl: string, artifacts: Partial<LH.GathererArtifacts>, warnings: Array<LH.IcuMessage>, pageLoadError: LH.LighthouseError | undefined}>}
  */
 async function _computeNavigationResult(
