@@ -53,7 +53,6 @@ export class SwapLocaleFeature {
       optionEl.value = locale;
       if (locale === currentLocale) optionEl.selected = true;
 
-      // https://github.com/microsoft/TypeScript/pull/44022#issuecomment-915087098
       if (window.Intl && Intl.DisplayNames) {
         const currentLocaleDisplay = new Intl.DisplayNames([currentLocale], {type: 'language'});
         const optionLocaleDisplay = new Intl.DisplayNames([locale], {type: 'language'});
