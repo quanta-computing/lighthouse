@@ -153,6 +153,7 @@ class GhPagesApp {
     ];
     if (!process.env.DEBUG) plugins.push(rollupPlugins.terser());
     const bundle = await rollup.rollup({
+      preserveEntrySignatures: 'strict',
       input,
       plugins,
     });
