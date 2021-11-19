@@ -43,6 +43,9 @@ async function run() {
       await generatorJsPromise,
       {path: require.resolve('pako/dist/pako_inflate.js')},
       {path: 'src/main.js', rollup: true, rollupPlugins: [
+        rollupPlugins.shim({
+          './locales.js': 'export default {}',
+        }),
         rollupPlugins.typescript({
           tsconfig: 'flow-report/tsconfig.json',
           // Plugin struggles with custom outDir, so revert it from tsconfig value
@@ -51,9 +54,6 @@ async function run() {
           composite: false,
           emitDeclarationOnly: false,
           declarationMap: false,
-        }),
-        rollupPlugins.shim({
-          './locales.js': 'export default {}',
         }),
         rollupPlugins.inlineFs({verbose: Boolean(process.env.DEBUG)}),
         rollupPlugins.replace({
