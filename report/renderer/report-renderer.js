@@ -20,7 +20,6 @@
 'use strict';
 
 /** @typedef {import('./dom.js').DOM} DOM */
-/** @typedef {{disableGlobalStyles?: boolean}} Options */
 
 import {CategoryRenderer} from './category-renderer.js';
 import {DetailsRenderer} from './details-renderer.js';
@@ -34,11 +33,8 @@ import {Util} from './util.js';
 export class ReportRenderer {
   /**
    * @param {DOM} dom
-   * @param {Options=} options
    */
-  constructor(dom, options) {
-    /** @type {Options|undefined} */
-    this.options = options;
+  constructor(dom) {
     /** @type {DOM} */
     this._dom = dom;
     /** @type {LH.Renderer.Options} */
@@ -327,7 +323,7 @@ export class ReportRenderer {
     categoryRenderer.injectFinalScreenshot(categories, report.audits, scoreScale);
 
     const reportFragment = this._dom.createFragment();
-    if (!this.options || !this.options.disableGlobalStyles) {
+    if (!this._opts.omitGlobalStyles) {
       reportFragment.append(this._dom.createComponent('styles'));
     }
 
