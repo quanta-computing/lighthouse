@@ -74,7 +74,9 @@ class Runner {
         }
       } else {
         // verify the url is valid and that protocol is allowed
-        if (runOpts.url && URL.isValid(runOpts.url) && URL.isProtocolAllowed(runOpts.url)) {
+        if (runOpts.url && typeof runOpts.url === 'function') {
+          requestedUrl = runOpts.url;
+        } else if (runOpts.url && URL.isValid(runOpts.url) && URL.isProtocolAllowed(runOpts.url)) {
           // Use canonicalized URL (with trailing slashes and such)
           requestedUrl = new URL(runOpts.url).href;
         } else {

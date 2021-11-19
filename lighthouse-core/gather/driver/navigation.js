@@ -71,6 +71,14 @@ function resolveWaitForFullyLoadedOptions(options) {
   };
 }
 
+async function doNavigate(session, url) {
+  if (typeof url === 'function') {
+    return Promise.resolve(undefined).then(() => url())
+  } else {
+    return session.sendCommand('Page.navigate', {url});
+  }
+}
+
 /**
  * Navigates to the given URL, assuming that the page is not already on this URL.
  * Resolves on the url of the loaded page, taking into account any redirects.
@@ -85,6 +93,7 @@ function resolveWaitForFullyLoadedOptions(options) {
 async function gotoURL(driver, url, options) {
   const status = {msg: `Navigating to ${url}`, id: 'lh:driver:navigate'};
   log.time(status);
+  console.log(`gotoURL called with ${url}`);
 
   const session = driver.defaultSession;
   const networkMonitor = new NetworkMonitor(driver.defaultSession);
@@ -96,7 +105,7 @@ async function gotoURL(driver, url, options) {
 
   // No timeout needed for Page.navigate. See https://github.com/GoogleChrome/lighthouse/pull/6413
   session.setNextProtocolTimeout(Infinity);
-  const waitforPageNavigateCmd = session.sendCommand('Page.navigate', {url});
+  const waitforPageNavigateCmd = doNavigate(session, url);
 
   const waitForNavigated = options.waitUntil.includes('navigated');
   const waitForLoad = options.waitUntil.includes('load');
@@ -147,7 +156,7 @@ function getNavigationWarnings(navigation) {
 
   if (navigation.timedOut) warnings.push(str_(UIStrings.warningTimeout));
 
-  if (!URL.equalWithExcludedFragments(requestedUrl, finalUrl)) {
+  if (typeof requestedUrl !== 'function' && !URL.equalWithExcludedFragments(requestedUrl, finalUrl)) {
     warnings.push(str_(UIStrings.warningRedirected, {
       requested: requestedUrl,
       final: finalUrl,
