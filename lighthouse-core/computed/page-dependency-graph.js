@@ -390,7 +390,7 @@ class PageDependencyGraph {
 
     // The root request is the earliest network request, using position in networkRecords array to break ties.
     const rootRequest = networkRecords.reduce((min, r) => (r.startTime < min.startTime ? r : min));
-    const rootNode = networkNodeOutput.idToNodeMap.get(rootRequest.requestId);
+    let rootNode = networkNodeOutput.idToNodeMap.get(rootRequest.requestId);
     // The main document request is the earliest network request *of type document*.
     // This will be different from the root request when there are server redirects.
     const mainDocumentRequest = NetworkAnalyzer.findMainDocument(networkRecords);
@@ -401,9 +401,12 @@ class PageDependencyGraph {
       throw new Error(`${rootNode ? 'mainDocument' : 'root'}Node not found.`);
     }
 
+    console.log(`rootRequest ${rootRequest.url} (${rootRequest.requestId})`);
+    console.log(`mainDocumentRequest ${mainDocumentRequest.url} (${mainDocumentRequest.requestId})`);
     if (mainDocumentNode !== rootNode &&
         (!mainDocumentNode.record.redirects ||
         !mainDocumentNode.record.redirects.includes(rootNode.record))) {
+      // rootNode = mainDocumentNode;
       throw new Error('Root node was not in redirect chain of mainDocument');
     }
 
