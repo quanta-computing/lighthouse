@@ -92,27 +92,12 @@ declare global {
   type UnPromise<T> = T extends Promise<infer U> ? U : T
 
   /**
-   * Split string `S` on delimiter `D`.
-   * From https://github.com/microsoft/TypeScript/pull/40336#issue-476562046
+   * If `S` is a kebab-style string `S`, convert to camelCase.
    */
-  type Split<S extends string, D extends string> =
-    string extends S ? string[] :
-    S extends '' ? [] :
-    S extends `${infer T}${D}${infer U}` ? [T, ...Split<U, D>] :
-    [S];
-
-  /**
-  * Join an array of strings using camelCase capitalization rules.
-  */
-  type StringsToCamelCase<T extends unknown[]> =
-    T extends [] ? '' :
-    T extends [string, ...infer U] ? `${T[0]}${Capitalize<StringsToCamelCase<U>>}` :
-    string;
-
-  /**
-  * If `S` is a kebab-style string `S`, convert to camelCase.
-  */
-  type KebabToCamelCase<S> = S extends string ? StringsToCamelCase<Split<S, '-'>> : S;
+  type KebabToCamelCase<S> =
+    S extends `${infer T}-${infer U}` ?
+    `${T}${Capitalize<KebabToCamelCase<U>>}` :
+    S
 
   /** Returns T with any kebab-style property names rewritten as camelCase. */
   type CamelCasify<T> = {
