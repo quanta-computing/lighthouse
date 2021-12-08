@@ -3,7 +3,7 @@
 # folders
 .vscode/
 .github/
-assets/
+# assets/
 build/
 coverage/
 proto/
