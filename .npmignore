@@ -1,13 +1,13 @@
 # use npm modules `pkgfiles` or `irish-pub` to validate which files are selected
 
 # folders
-.vscode/
-.github/
-# assets/
-build/
-coverage/
-proto/
-docs/
+/.vscode/
+/.github/
+/assets/
+/build/
+/coverage/
+/proto/
+/docs/
 
 lighthouse-core/lib/sd-validation/
 lighthouse-core/scripts/*
