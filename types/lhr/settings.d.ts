@@ -60,7 +60,7 @@ export type ScreenEmulationSettings = {
   /** The maximum amount of time to wait for a page to load, in ms. */
   maxWaitForLoad?: number;
   /** List of URL patterns to block. */
-  blockedUrlPatterns?: string[] | null;
+  blockedUrlPatterns?: string[] | null | false;
   /** Comma-delimited list of trace categories to include. */
   additionalTraceCategories?: string | null;
   /** Flag indicating the run should only audit. */

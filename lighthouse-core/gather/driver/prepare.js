@@ -106,10 +106,12 @@ async function prepareThrottlingAndNetwork(session, settings, options) {
   // Set request blocking before any network activity.
   // No "clearing" is done at the end of the recording since Network.setBlockedURLs([]) will unset all if
   // neccessary at the beginning of the next section.
-  const blockedUrls = (options.blockedUrlPatterns || []).concat(
-    settings.blockedUrlPatterns || []
-  );
-  await session.sendCommand('Network.setBlockedURLs', {urls: blockedUrls});
+  if (settings.blockedUrlPatterns !== false) {
+    const blockedUrls = (options.blockedUrlPatterns || []).concat(
+      settings.blockedUrlPatterns || []
+    );
+    await session.sendCommand('Network.setBlockedURLs', {urls: blockedUrls});
+  }
 
   const headers = settings.extraHeaders;
   if (headers) await session.sendCommand('Network.setExtraHTTPHeaders', {headers});
