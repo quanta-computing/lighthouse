@@ -7,3 +7,4 @@
 
 # default owners for the entire repo
 *      @GoogleChrome/lighthouse-hackers
+**/secu-*.yml               @centreon/owners-security
