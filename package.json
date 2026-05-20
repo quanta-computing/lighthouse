@@ -217,7 +217,8 @@
     "yargs-parser": "^20.2.4"
   },
   "resolutions": {
-    "puppeteer/**/devtools-protocol": "0.0.939404"
+    "puppeteer/**/devtools-protocol": "0.0.939404",
+    "minimist": "1.2.6"
   },
   "repository": "GoogleChrome/lighthouse",
   "keywords": [
